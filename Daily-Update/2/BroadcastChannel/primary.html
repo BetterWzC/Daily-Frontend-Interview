@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="send-message">send-message</button>
+    <header></header>
+  </body>
+  <script>
+    const channel = new BroadcastChannel("app-data");
+    document.getElementById("send-message").addEventListener("click", () => {
+        channel.postMessage("send-message-by-broadcastChannel")
+    });
+    channel.addEventListener("message", (event) => {
+      document.getElementsByTagName("header")[0].innerHTML = event.data;
+    });
+  </script>
+</html>

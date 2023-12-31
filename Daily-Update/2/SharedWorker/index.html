@@ -1,0 +1,45 @@
+<!-- page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SharedWorker Example</title>
+</head>
+<body>
+  <h1>Page</h1>
+  <div id="sharedDataDisplay"></div>
+  <input type="text" id="updateSharedDataInput" placeholder="Enter new data">
+  <button id="updateSharedDataButton">Update Shared Data</button>
+  <button id="getSharedDataButton">Get Shared Data</button>
+  <script>
+    const sharedDataDisplay = document.getElementById('sharedDataDisplay');
+    const updateSharedDataInput = document.getElementById('updateSharedDataInput');
+    const updateSharedDataButton = document.getElementById('updateSharedDataButton');
+
+    // 创建 SharedWorker 实例
+    const sharedWorker = new SharedWorker('shared-worker.js');
+
+    // 创建与 SharedWorker 的连接端口
+    const port = sharedWorker.port || sharedWorker;
+
+    // 接收来自 SharedWorker 的消息
+    port.onmessage = function (event) {
+      sharedDataDisplay.textContent = event.data;
+    };
+
+    // 更新共享数据的按钮点击事件
+    updateSharedDataButton.addEventListener('click', function () {
+      const newSharedData = updateSharedDataInput.value;
+      // 向 SharedWorker 发送消息，更新共享数据
+      port.postMessage(newSharedData);
+    });
+
+    // 获取当前共享数据的按钮点击事件
+    document.getElementById('getSharedDataButton').addEventListener('click', function () {
+      // 向 SharedWorker 发送消息，请求当前共享数据
+      port.postMessage('getSharedData');
+    });
+  </script>
+</body>
+</html>

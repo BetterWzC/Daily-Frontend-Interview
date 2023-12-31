@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page A</title>
+</head>
+<body>
+    <h1>Page A</h1>
+    
+    <!-- Button to open Page B in a new window -->
+    <button onclick="openPageB()">Open Page B</button>
+    
+    <!-- Button to send message to Page B -->
+    <button onclick="sendMessageToPageB()">Send Message to Page B</button>
+
+    <script>
+        let pageBWindow;
+
+        function openPageB() {
+            // Open Page B in a new window
+            pageBWindow = window.open('Secondary.html', '_blank');
+        }
+
+        function sendMessageToPageB() {
+            if (pageBWindow) {
+                // Send message to Page B using postMessage
+                const message = 'Hello from Page A!';
+                pageBWindow.postMessage(message, "http://127.0.0.1:5501"); // '*' means any origin is allowed
+            } else {
+                alert('Page B is not open. Please open Page B first.');
+            }
+        }
+    </script>
+</body>
+</html>

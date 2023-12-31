@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Secondary</title>
+</head>
+<body>
+    <h1>Page Secondary</h1>
+    
+    <p id="messageDisplay">Waiting for message...</p>
+
+    <script>
+        // Listen for messages from other windows
+        window.addEventListener('message', function (event) {
+            // Check the origin of the message
+            // For security reasons, you should always check the origin
+            // In this example, '*' means any origin is allowed
+            if (event.origin === "http://127.0.0.1:5501" && event.data) {
+                // Display the received message on the page
+                document.getElementById('messageDisplay').innerText = 'Message from Page primary: ' + event.data;
+            }
+        });
+    </script>
+</body>
+</html>

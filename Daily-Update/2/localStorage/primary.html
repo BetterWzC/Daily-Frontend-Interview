@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="new-storage" />
+    <button id="update-button">Update localStorage</button>
+    <div id="show-text">Waiting the event....</div>
+  </body>
+  <script>
+    document.getElementById("update-button").addEventListener("click", () => {
+      window.localStorage.setItem(
+        "testStorage",
+        document.getElementById("new-storage").value
+      );
+    });
+
+    window.addEventListener("storage", (event) => {
+      if (event.storageArea != localStorage) return;
+      if (event.key === "testStorage") {
+        document.getElementById("show-text").innerHTML = event.newValue;
+        // Do something with event.newValue
+      }
+    });
+  </script>
+</html>

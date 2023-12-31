@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>waiting for the message....</header>
+  </body>
+  <script>
+    const channel = new BroadcastChannel("app-data");
+    channel.onmessage = (event) => {
+      document.getElementsByTagName("header")[0].innerHTML = event.data;
+    };
+    // channel.addEventListener("message", (event) => {
+    //   document.getElementsByTagName("header")[0].innerHTML = event.data;
+    // });
+  </script>
+</html>
